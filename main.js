@@ -5,17 +5,13 @@ var $ledgerList = [];
 $(document).ready(function() {
 
  var $input = $('#prompt');
- // var $inputValue = $input.val(); >can't put that there because the value at that moment is nothing so the value would ALWAYS be nothing
+ // var $inputValue = $input.val(); >can't put that there because the value at that moment is nothing so the value would ALWAYS be nothing (although, if that's true, why is the value of the purse able to change?)
  var $log = $('#log');
  var purse = 10000;
- var $ledgerList = [];
+ // var $ledgerList = [];
  
  var shylockResponds = function() {
- 	// var $listItemQuote = $('<li>');
- 	// $listItemQuote.text('   ');
- 	// $listItemQuote.addClass('quote');
- 	// $log.append($listItemQuote);
- 	var $inputValue = $input.val();
+	var $inputValue = $input.val();
  	var $listItem = $('<li>');
  	var $actionArray = $inputValue.split(' ');
  	if ($inputValue === 'purse') {
@@ -29,7 +25,7 @@ $(document).ready(function() {
  		var $amountLoaned = Number($actionArray[2]);
  		$listItem.text('Shylockbot gives ' + $actionArray[1] +' '+ $amountLoaned + ' ducats.');
  		$listItem.addClass('action');
- 		var $ledgerList = [];
+ 		// var $ledgerList = [];
  		$ledgerList.push($listItem);
  		purse -= $amountLoaned; 
 
@@ -44,13 +40,24 @@ $(document).ready(function() {
  		$listItem.addClass('quote');
  	} else if ($inputValue === 'ledger') {
  		// we want it to print li's that we got from 'loan' with the text changed around a bit--should i add an id to these when they are created? how else could i access them?
- 		// maybe i could push each load item into an array as they're created and then have ledger reprint them 
- 		$listItem.text
- 	}
+ 		// maybe i could push each loan li into an array as they're created and then have ledger reprint them according to some instructions that would switch up their order (somehow) (lines 88-112 have comments showing some attempts at this and i think lines 44-49 should work but the loan li's aren't pushing into the ledgerList array even though i told them to in line 29! UPDATE: the li's ARE pushing into the ledgerList but i'm getting an error that says current.split(' ') is not a function which is weird because i tried it out with a fake array in the console and it did just what i wanted it to do so i'm kind of at a loss.)
+ 		var $splitLoans = $ledgerList.map(function(current) {
+			return current.split(' ');
+			console.log($splitLoans);
+		});
+		var $rearrangedLoans = $splitLoans.map(function(array) {
+			return array[1] +' owes '+ array[2]; 
+			console.log($rearrangedLoans);
+		});
+ 		// i'm drawing a blank on how to turn array items into li's. 
+ 		var i = 0;
+		$listItem.text(rearrangedLoans[i]);
+		i++;
+ 	};
  	$log.append($listItem);
  };
 
- // object practice 
+ // object help- thanks frances!
  // var something = {
  // 	name: "marvin",
  // 	age: 20,
